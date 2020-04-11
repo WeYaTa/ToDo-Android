@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_backgroud"
+    tools:context=".LoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_todo"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To Do App"
+                android:layout_below="@id/imageView"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorAccentLight"
+                android:textSize="25dp"/>
+
+            <EditText
+                android:layout_marginTop="130dp"
+                android:id="@+id/username"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:background="#11000000"
+                android:drawableLeft="@drawable/ic_user"
+                android:ems="10"
+                android:hint="Username"
+                android:textColorHint="#FFF"
+                android:inputType="textPersonName"
+                android:textSize="16dp"
+                android:layout_marginBottom="35dp"
+                android:layout_below="@+id/imageView"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:background="#11000000"
+                android:drawableLeft="@drawable/ic_password"
+                android:ems="10"
+                android:hint="Password"
+                android:textColorHint="#FFF"
+                android:inputType="textPassword"
+                android:layout_below="@+id/username"
+                android:layout_alignLeft="@+id/username"/>
+
+            <CheckBox
+                android:id="@+id/remember"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remember Me"
+                android:textColor="#FFF"
+                android:buttonTint="#FFF"
+                android:layout_below="@+id/password"
+                android:layout_alignLeft="@+id/password"
+                android:layout_marginTop="15dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="30dp"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                app:cardBackgroundColor="@color/colorPrimaryDark"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="10dp"
+                android:id="@+id/login"
+                android:layout_marginBottom="31dp"
+                android:layout_below="@+id/remember"
+                android:layout_centerHorizontal="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true">
+
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Login"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"/>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register Here."
+                android:layout_below="@+id/login"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:textColor="#FFFFFF"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_below="@+id/register"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/linearLayout">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/twitter" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    app:srcCompat="@drawable/instagram" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    app:srcCompat="@drawable/facebook" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:layout_below="@id/imageView"
+                android:indeterminateDrawable="@drawable/progress"
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

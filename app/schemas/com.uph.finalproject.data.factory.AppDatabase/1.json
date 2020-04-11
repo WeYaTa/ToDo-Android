@@ -1,0 +1,220 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "97f4e966a882d034f24b57ca46e665fc",
+    "entities": [
+      {
+        "tableName": "users",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userID` TEXT NOT NULL, `password` TEXT, `name` TEXT, `email` TEXT, PRIMARY KEY(`userID`))",
+        "fields": [
+          {
+            "fieldPath": "userID",
+            "columnName": "userID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "userID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_users_userID",
+            "unique": false,
+            "columnNames": [
+              "userID"
+            ],
+            "createSql": "CREATE  INDEX `index_users_userID` ON `${TABLE_NAME}` (`userID`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "boards",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`boardID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `background` TEXT, `userID` TEXT, FOREIGN KEY(`userID`) REFERENCES `users`(`userID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "boardID",
+            "columnName": "boardID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "boardName",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "backgroundColor",
+            "columnName": "background",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "userID",
+            "columnName": "userID",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "boardID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_boards_boardID",
+            "unique": false,
+            "columnNames": [
+              "boardID"
+            ],
+            "createSql": "CREATE  INDEX `index_boards_boardID` ON `${TABLE_NAME}` (`boardID`)"
+          },
+          {
+            "name": "index_boards_userID",
+            "unique": false,
+            "columnNames": [
+              "userID"
+            ],
+            "createSql": "CREATE  INDEX `index_boards_userID` ON `${TABLE_NAME}` (`userID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "users",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "userID"
+            ],
+            "referencedColumns": [
+              "userID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "todos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`todoID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `status` TEXT, `description` TEXT, `boardID` INTEGER NOT NULL, `userID` TEXT, FOREIGN KEY(`boardID`) REFERENCES `boards`(`boardID`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`userID`) REFERENCES `users`(`userID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "todoID",
+            "columnName": "todoID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "boardID",
+            "columnName": "boardID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userID",
+            "columnName": "userID",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "todoID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_todos_todoID",
+            "unique": false,
+            "columnNames": [
+              "todoID"
+            ],
+            "createSql": "CREATE  INDEX `index_todos_todoID` ON `${TABLE_NAME}` (`todoID`)"
+          },
+          {
+            "name": "index_todos_boardID",
+            "unique": false,
+            "columnNames": [
+              "boardID"
+            ],
+            "createSql": "CREATE  INDEX `index_todos_boardID` ON `${TABLE_NAME}` (`boardID`)"
+          },
+          {
+            "name": "index_todos_userID",
+            "unique": false,
+            "columnNames": [
+              "userID"
+            ],
+            "createSql": "CREATE  INDEX `index_todos_userID` ON `${TABLE_NAME}` (`userID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "boards",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "boardID"
+            ],
+            "referencedColumns": [
+              "boardID"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "userID"
+            ],
+            "referencedColumns": [
+              "userID"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '97f4e966a882d034f24b57ca46e665fc')"
+    ]
+  }
+}

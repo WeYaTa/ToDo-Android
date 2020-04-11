@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#ff896b</color>
+    <color name="colorPrimaryDark">#eb4d55</color>
+    <color name="colorPrimary">#ff9d76</color>
+    <color name="colorAccentLight">#f6e1e1</color>
+    <color name="colorSwipeDelete">#FF0000</color>
+    <color name="colorSwipeEdit">#00CED1</color>
+    <color name="colorTitle">#f6e1e1</color>
+    <color name="colorinprogress">#ff896b</color>
+    <color name="colortodo">#779ecb</color>
+    <color name="colorfinished">#77dd77</color>
+
+</resources>

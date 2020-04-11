@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.uph.finalproject">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:name=".application.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.popup.AddToDoPopUp" android:theme="@style/AppTheme.PopUp"/>
+        <activity android:name=".ui.popup.EditToDoPopUp" android:theme="@style/AppTheme.PopUp"/>
+        <activity android:name=".ui.popup.AddBoardPopUp"
+            android:theme="@style/AppTheme.PopUp"/>
+        <activity
+            android:name=".ui.popup.EditBoardPopUp"
+            android:theme="@style/AppTheme.PopUp"
+            />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver
+            android:name=".receiver.NotificationReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.example.forireceiver" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".service.NotificationService" />
+        <service android:name=".service.AlarmService" />
+    </application>
+
+</manifest>
