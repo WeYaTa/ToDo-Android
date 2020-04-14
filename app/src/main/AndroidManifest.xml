@@ -40,6 +40,12 @@
                 <action android:name="com.example.forireceiver" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".receiver.AlarmSetterReceiver" >
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
         <service android:name=".service.NotificationService" />
         <service android:name=".service.AlarmService" />
     </application>

@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:text="Example ToDo Item"
             android:layout_marginLeft="15dp"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
             android:layout_gravity="center"/>
     </androidx.cardview.widget.CardView>
 

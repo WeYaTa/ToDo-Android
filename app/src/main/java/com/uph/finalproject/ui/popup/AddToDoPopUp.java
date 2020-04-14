@@ -92,7 +92,7 @@ public class AddToDoPopUp extends Activity {
 
     void addNewToDo(final ToDo ToDo) {
         BoardRepo apiService = GA.getClient().create(BoardRepo.class);
-        Call<Board> call = apiService.getBoardByID("boards/" + boardID);
+        Call<Board> call = apiService.getBoardByID(boardID);
         call.enqueue(new Callback<Board>() {
             @Override
             public void onResponse(Call<Board> call, final Response<Board> response) {

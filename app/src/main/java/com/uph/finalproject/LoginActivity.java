@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login(final String username, final String password){
         UserRepo apiService = GA.getClient().create(UserRepo.class);
-        Call<User> call = apiService.getUserByUserID("users/" + username);
+        Call<User> call = apiService.getUserByUserID(username);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, final Response<User> response) {
@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
 
         BoardRepo apiService = GA.getClient().create(BoardRepo.class);
         //check if Board exists
-        Call<List<Board>> call = apiService.getBoardsByUserID("boards/user/" + user.getUserID());
+        Call<List<Board>> call = apiService.getBoardsByUserID(user.getUserID());
         call.enqueue(new Callback<List<Board>>() {
             @Override
             public void onResponse(Call<List<Board>> call, final Response<List<Board>> response) {
@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ToDoRepo apiServiceToDo = GA.getClient().create(ToDoRepo.class);
         //check if Board exists
-        Call<List<ToDo>> callToDo = apiServiceToDo.getToDosByUserID("todos/user/" + user.getUserID());
+        Call<List<ToDo>> callToDo = apiServiceToDo.getToDosByUserID(user.getUserID());
         callToDo.enqueue(new Callback<List<ToDo>>() {
             @Override
             public void onResponse(Call<List<ToDo>> call, final Response<List<ToDo>> response) {

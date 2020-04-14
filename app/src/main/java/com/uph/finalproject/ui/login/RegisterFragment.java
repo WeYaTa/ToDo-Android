@@ -107,7 +107,7 @@ public class RegisterFragment extends Fragment {
         final UserRepo apiService = GA.getClient().create(UserRepo.class);
 
         //check if User exists
-        Call<User> call = apiService.getUserByUserID("users/" + user.getUserID());
+        Call<User> call = apiService.getUserByUserID(user.getUserID());
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, final Response<User> response) {

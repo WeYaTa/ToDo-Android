@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
@@ -39,6 +40,13 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.e("Hello", "Receiver masuk");
 
+        String username = intent.getAction();
+        AppDatabase db = Room.databaseBuilder(context, AppDatabase.class, ((MyApplication) context.getApplicationContext()).getDATABASE_NAME()).allowMainThreadQueries().build();
+
+        Log.e("Username", username);
+        Board boards[] = db.BoardDAO().getBoardsByUserID(username);
+        ToDo todos[] = db.ToDoDAO().getToDosByUserID(username);
+
         createNotificationChannel(context);
 
         // Create an explicit intent for an Activity in your app
@@ -47,9 +55,11 @@ public class NotificationReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_todo))
                 .setSmallIcon(R.drawable.ic_todo)
                 .setContentTitle("ToDos Are Waiting To Be Finished!")
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("You have interesting tasks awaiting for your doing!"))
+//                .setContentText("You have " + boards.length + " boards, " + countToDo(todos) + " todos and " + countInProgress(todos) + " in-progress tasks waiting for you doing!")
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("You have " + boards.length + " boards, " + countToDo(todos) + " todos and " + countInProgress(todos) + " in-progress tasks waiting for you doing!"))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
@@ -59,6 +69,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         // notificationId is a unique int for each notification that you must define
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
+
     private void createNotificationChannel(Context context) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -75,4 +86,19 @@ public class NotificationReceiver extends BroadcastReceiver {
         }
     }
 
+    int countToDo(ToDo todos[]) {
+        int count = 0;
+        for (ToDo todo : todos) {
+            if (todo.getStatus().equals("todo")) count++;
+        }
+        return count;
+    }
+
+    int countInProgress(ToDo todos[]) {
+        int count = 0;
+        for (ToDo todo : todos) {
+            if (todo.getStatus().equals("inprogress")) count++;
+        }
+        return count;
+    }
 }

@@ -14,6 +14,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Url;
 
 public interface UserRepo {
@@ -21,8 +22,11 @@ public interface UserRepo {
     @GET("users")
     Call<List<User>> getAllUsers();
 
-    @GET
-    Call<User> getUserByUserID(@Url String url);
+//    @GET
+//    Call<User> getUserByUserID(@Url String url);
+
+    @GET("users/{userID}")
+    Call<User> getUserByUserID(@Path("userID") String userID);
 
     @POST("users")
     Call<User> postUserToDB(@Body User o);

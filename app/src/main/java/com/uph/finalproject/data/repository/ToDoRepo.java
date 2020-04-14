@@ -15,6 +15,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Url;
 
 public interface ToDoRepo {
@@ -22,8 +23,11 @@ public interface ToDoRepo {
     @GET("todos")
     Call<List<ToDo>> getAllToDos();
 
-    @GET
-    Call<List<ToDo>> getToDosByUserID(@Url String url);
+//    @GET
+//    Call<List<ToDo>> getToDosByUserID(@Url String url);
+
+    @GET("todos/user/{userID}")
+    Call<List<ToDo>> getToDosByUserID(@Path("userID") String userID);
 
     @GET
     Call<List<ToDo>> getToDosByBoardID(@Url String url);

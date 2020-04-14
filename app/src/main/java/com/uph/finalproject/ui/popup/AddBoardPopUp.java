@@ -125,7 +125,7 @@ public class AddBoardPopUp extends Activity {
 
     void addNewBoard(final Board board) {
         UserRepo apiService = GA.getClient().create(UserRepo.class);
-        Call<User> call = apiService.getUserByUserID("users/" + user.getUserID());
+        Call<User> call = apiService.getUserByUserID(user.getUserID());
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, final Response<User> response) {

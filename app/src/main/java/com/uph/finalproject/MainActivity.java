@@ -35,6 +35,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     boolean doubleBackToExitPressedOnce = false;
     private DrawerLayout drawer;
@@ -141,9 +143,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 editor.putString("password", "");
                                 editor.apply();
 
+                                Intent i = new Intent(getApplicationContext(), NotificationReceiver.class);
+                                i.setAction(user.getUserID());
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(System.currentTimeMillis());
+                                AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+                                alarmManager.cancel(pendingIntent);
                                 finish();
 
-                                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                                i = new Intent(getApplicationContext(), LoginActivity.class);
                                 startActivity(i);
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -181,20 +190,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 SharedPreferences preferences = getSharedPreferences("notification"+user.getUserID(), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 Intent i = new Intent(getApplicationContext(), NotificationReceiver.class);
+                i.setAction(user.getUserID());
                 AlarmManager alarmManager=(AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
 
 
                 if(item.isChecked()) {
                     editor.putBoolean("notification", false);
                     item.setChecked(false);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
                     alarmManager.cancel(pendingIntent);
                     Toast.makeText(getApplicationContext(), "Notification Off", Toast.LENGTH_SHORT).show();
                 }else {
                     editor.putBoolean("notification", true);
                     item.setChecked(true);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
-                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),1000, pendingIntent);
+                    alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),1000, pendingIntent);
                     Toast.makeText(getApplicationContext(), "Notification On", Toast.LENGTH_SHORT).show();
                 }
                 editor.apply();
